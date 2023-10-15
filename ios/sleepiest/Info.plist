@@ -54,6 +54,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>ShiftyNotesRegular-BWZ6d.ttf</string>
+		<string>PatrickHand-Regular.ttf</string>
 	</array>
 </dict>
 </plist>

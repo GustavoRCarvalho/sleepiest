@@ -2,6 +2,10 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/PatrickHand-Regular.ttf",
+      "sha1": "8e9d9952d4f107775141b5ae00eeb3cac3a19d46"
+    },
+    {
       "path": "assets/fonts/ShiftyNotesRegular-BWZ6d.ttf",
       "sha1": "dcc84ef09adaef5a50e761ad80c14704cfaec78a"
     }
