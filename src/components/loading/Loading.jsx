@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
   Animated,
+  Easing,
   Image,
   StyleSheet,
   Text,
@@ -40,7 +41,7 @@ export const Loading = () => {
         ...styles.backgroundImage,
         height: fadeAnim.interpolate({
           inputRange: [0, 1],
-          outputRange: ['50%', '100%'],
+          outputRange: ['60%', '100%'],
         }),
       }}
       onTouchEnd={handleFade}>
