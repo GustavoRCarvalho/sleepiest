@@ -1,39 +1,27 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  Animated,
-  Easing,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  useColorScheme,
-} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {Animated, Image, StyleSheet, useColorScheme} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import image from '../../assets/images/1330761.png';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 const DEFAULT_IMAGE = Image.resolveAssetSource(image).uri;
 
-export const Loading = () => {
+export const Loading = ({transition}) => {
   const isDarkMode = useColorScheme() === 'dark';
-  const [opacity, setOpacity] = useState(1);
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeAnim = useRef(new Animated.Value(transition)).current;
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  function handleFade() {
-    setOpacity(state => (state === 1 ? 0 : 1));
-  }
-
   useEffect(() => {
     Animated.timing(fadeAnim, {
-      toValue: opacity,
+      toValue: transition,
       duration: 1000,
       useNativeDriver: false,
     }).start();
-  }, [opacity, fadeAnim]);
+  }, [transition, fadeAnim]);
 
   return (
     <Animated.View
@@ -41,14 +29,31 @@ export const Loading = () => {
         ...styles.backgroundImage,
         height: fadeAnim.interpolate({
           inputRange: [0, 1],
-          outputRange: ['60%', '100%'],
+          outputRange: ['30%', '100%'],
         }),
-      }}
-      onTouchEnd={handleFade}>
+      }}>
       <Image style={styles.Image} source={{uri: DEFAULT_IMAGE}} />
       <Animated.View style={{...styles.infoContainer, opacity: fadeAnim}}>
-        <Icon name="sleep" size={80} />
-        <Text style={styles.Text}>Sleepiest</Text>
+        <AnimatedIcon
+          name="sleep"
+          size={80}
+          style={{
+            fontSize: fadeAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [30, 80],
+            }),
+          }}
+        />
+        <Animated.Text
+          style={{
+            ...styles.Text,
+            fontSize: fadeAnim.interpolate({
+              inputRange: [0, 1],
+              outputRange: [30, 50],
+            }),
+          }}>
+          Sleepiest
+        </Animated.Text>
       </Animated.View>
     </Animated.View>
   );
