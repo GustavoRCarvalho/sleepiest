@@ -8,6 +8,7 @@ import {StoriesInfo} from '../player/StoriesInfos';
 export const Home = () => {
   const [transition, setTransition] = useState(1);
   const [isPlayerOpen, setIsPlayerOpen] = useState(0);
+  const [openMusic, setOpenMusic] = useState({});
 
   useEffect(() => {
     setTimeout(() => {
@@ -15,26 +16,35 @@ export const Home = () => {
     }, 1000);
   }, []);
 
-  console.log(isPlayerOpen);
+  console.log(openMusic);
 
   return (
     <Animated.View style={Styles.controlBackground}>
       <Loading transition={transition} />
       <ScrollView contentContainerStyle={Styles.containerScrollView}>
         <View style={Styles.listCards}>
-          {StoriesCardsList.map(({title, time, src}) => (
-            <StorieCard
-              key={title}
-              title={title}
-              time={time}
-              src={src}
-              isPlayerOpen={isPlayerOpen}
-              setIsPlayerOpen={setIsPlayerOpen}
-            />
-          ))}
+          {StoriesCardsList.map(
+            ({title, time, image, about, author, audioFile}) => (
+              <StorieCard
+                key={title}
+                title={title}
+                time={time}
+                image={image}
+                onClick={() =>
+                  setOpenMusic({title, time, image, about, author, audioFile})
+                }
+                isPlayerOpen={isPlayerOpen}
+                setIsPlayerOpen={setIsPlayerOpen}
+              />
+            ),
+          )}
         </View>
       </ScrollView>
-      <StoriesInfo isOpen={isPlayerOpen} setIsPlayerOpen={setIsPlayerOpen} />
+      <StoriesInfo
+        openMusic={openMusic}
+        isOpen={isPlayerOpen}
+        setIsPlayerOpen={setIsPlayerOpen}
+      />
     </Animated.View>
   );
 };

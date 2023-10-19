@@ -5,7 +5,8 @@ import Icon from 'react-native-vector-icons/Entypo';
 export const StorieCard = ({
   title,
   time,
-  src,
+  image,
+  onClick,
   isPlayerOpen,
   setIsPlayerOpen,
 }) => {
@@ -38,12 +39,13 @@ export const StorieCard = ({
   function handleOpen() {
     setIsPlayerOpen(1);
     setIsOpen(state => (state === 1 ? 0 : 1));
+    onClick();
   }
 
   return (
     <View style={Styles.cardContainer} onTouchEnd={handleOpen}>
       <Animated.Image
-        src={src}
+        src={image}
         style={{
           ...Styles.image,
           borderRadius: fadeAnim.interpolate({
